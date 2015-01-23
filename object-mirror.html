@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta charset="utf-8" />
+</head>
+<body>
+  <header>
+   
+  </header>
+
+  <table border="1" cellspacing="5" cellpadding="5">
+    <tr>
+      <th>Original typeof</th>
+      <th>Original.prototype.toString</th>
+      <th>Original Value</th>
+      <th></th>
+      <th>Mirrored typeof</th>
+      <th>Mirrored.prototype.toString</th>
+      <th>Mirrored Value</th>
+    </tr>
+    <tbody> </tbody>
+  </table>
+
+  <footer>
+    
+  </footer>
+
+  <script type="text/javascript" charset="utf-8">
+    // accpets a (native) java script object and returns an
+    // object of the same type that is either empty or contains
+    // the objects default values
+    //
+    // example: String() === ''
+    //          Date() === date and time of now
+    //
+    var objectOfSameType = function(blueprint) {
+      var type = Object.prototype.toString.call(blueprint).split(' ')[1];
+      return  this[type.slice(0, type.length - 1)]();
+    };
+  
+
+
+    var createCell = function(innerHTML) {
+      var el = document.createElement('td'); 
+      el.innerHTML = innerHTML;
+      return el;
+    };
+
+    var typeExamples = [
+      'Guten Tag',
+      42,
+      1.1,
+      ['alpha', 'beta', 'gamma'],
+      true,
+      {key: 'value'}
+    ];
+
+    var table = document.querySelector('table');
+    for(var i in typeExamples) {
+      var sample = typeExamples[i];
+      var row = document.createElement('tr'); 
+
+      row.appendChild(createCell(typeof sample));
+      row.appendChild(createCell(Object.prototype.toString.call(sample)));
+      row.appendChild(createCell(sample));
+
+      row.appendChild(createCell(''));
+      var mirrored = objectOfSameType(sample);
+
+      row.appendChild(createCell(typeof mirrored));
+      row.appendChild(createCell(Object.prototype.toString.call(mirrored)));
+      row.appendChild(createCell(mirrored));
+
+      table.appendChild(row);
+    }
+
+    
+
+
+  </script>
+</body>
+</html>
